@@ -1,0 +1,11 @@
+^(?s)(\S+?) (\S+?) (app/veoh-alb-public/(\S\w+)) ((\S+?) ){9}$
+http 2023-08-23T23:55:00.149893Z app/veoh-alb-public/e33824f27c4e2781 
+
+^("(GET|POST|PUT|PATCH|DELETE) (http|https)://(\w+/).*")$
+
+
+
+^((https?|h2|wss?|))\s*([^\s]+)\s*([^\s]+)\s*(?P<alb_client_addr>[^:]+):\s*(?P<alb_client_port>[^\s]+)\s*(?P<alb_target_addr>[^:]+):\s*(?P<alb_target_port>[^\s]+)\s*\s*(?P<alb_request_processing_time>[^\s]+)\s*(?P<alb_target_processing_time>[^\s]+)\s*(?P<alb_response_processing_time>[^\s]+)\s*(?P<alb_elb_status_code>[^\s]+)\s*(?P<alb_target_status_code>[^\s]+)\s*(?P<alb_received_bytes>[^\s]+)\s*(?P<alb_sent_bytes>[^\s]+)\s*"(?P<alb_request>.*?)"\s+"(?P<alb_user_agent>[^\"]+)"\s*(?P<alb_ssl_cipher>[^\s]+)\s*(?P<alb_ssl_protocol>[^\s]+)\s*(?P<alb_target_group_arn>[^\s]+)\s*"(?P<alb_trace_id>[^\"]+)"\s*"(?P<alb_domain_name>[a-zA-Z0-9\.\-:]+)"\s*"(?P<alb_chosen_cert_arn>[^\"]+)"\s*(?P<alb_matched_rule_priority>[^\s]+)\s*(?P<alb_request_creation_time>[^\s]+)\s*\s*"(?P<alb_actions_executed>[^\s]+)"\s*"(?P<alb_redirect_url>[^\s]+)"\s*"(?P<alb_error_reason>[^\"]+)"\s*"?(?P<alb_target_port_list>[0-9 :\.-]+)"?\s*"?(?P<alb_target_status_code_list>[0-9 -]+)"?
+
+
+^(https|http|)\s*([^\s]+)\s*([^\s]+)\s*([^:]+):\s*([^\s]+)\s*([^:]+):\s*([^\s]+)\s*\s*([^\s]+)\s*([^\s]+)\s*([^\s]+)\s*([^\s]+)\s*([^\s]+)\s*([^\s]+)\s*([^\s]+)\s*"(.*?)"\s+"([^\"]+)"\s*([^\s]+)\s*([^\s]+)\s*([^\s]+)\s*"([^\"]+)"\s*"([a-zA-Z0-9\.\-:]+)"\s*"([^\"]+)"\s*([^\s]+)\s*([^\s]+)\s*\s*"([^\s]+)"\s*"([^\s]+)"\s*"([^\"]+)"\s*"?[0-9 :\.-]+)"?\s*"?([0-9 -]+)"?

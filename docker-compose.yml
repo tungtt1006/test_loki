@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  loki:
+    image: grafana/loki
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 3100:3100
+
+  promtail:
+    image: grafana/promtail
+    volumes:
+      - ./promtail/config.yml:/etc/promtail/config.yml
+      - ./promtail/positions.yaml:/var/log/positions.yaml
+      - ./promtail/logs:/var/log/access
+    environment:
+      LOKI: http://loki:3100/loki/api/v1/push
