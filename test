@@ -1,4 +1,4 @@
-^(?s)(\S+?) (\S+?) (app/veoh-alb-public/(\S\w+)) ((\S+?) ){9}$
+^(?s)(\S+?) (\S+?) (app/veoh-alb-public/(\S\w+)) ((\S+?) ){9}("(GET|POST|PUT|PATCH) (http|https)://(\S+?):(80|443)/(\S+?)\?(\S+?) (\S+?)")$
 http 2023-08-23T23:55:00.149893Z app/veoh-alb-public/e33824f27c4e2781 
 
 ^("(GET|POST|PUT|PATCH|DELETE) (http|https)://(\w+/).*")$

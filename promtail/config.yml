@@ -2,8 +2,11 @@ server:
   http_listen_port: 9080
   grpc_listen_port: 0
 
+positions:
+  filename: /var/log/positions.yaml
+
 clients:
-  - url: https://${LOKI}/loki/api/v1/push
+  - url: ${LOKI}
 
 target_config:
   sync_period: 10s
@@ -13,12 +16,26 @@ scrape_configs:
     pipeline_stages:
       - match:
           selector: '{job="access-logs"}'
-          pipeline_stages:
+          stages:
             - regex:
-                expression: '^(?s)(?P<time>\\S+?) (?P<stream>stdout|stderr) (?P<flags>\\S+?) (?P<content>.*)$'
+                #expression: '^(?s)(?P<time>\\S+?) (?P<stream>stdout|stderr) (?P<flags>\\S+?) (?P<content>.*)$'
+                expression: '^(?s)(?P<method>\\S+?) (?P<time>\\S+?) (?P<loadbalancer>app/veoh-alb-public/(\S\w+)) ((\S+?) ){9}("(?P<restfulmethod>GET|POST|PUT|PATCH) (?P<protocol>http|https)://(?P<domain>\\S+?):(?P<port>80|443)/(?P<path>\\S+?)\?(?P<parameters>\\S+?) (?P<httpversion>\\S+?)")$'
+            - timestamp:
+                source: time
+                format: 2023-08-10T10:40:00.950980Z00:00
+            - labels:
+                time:
+                method:
+                loadbalancer:
+                restfulmethod:
+                protocol:
+                domain:
+                port:
+                path:
+                parameters:
     decompression:
       enabled: true
-      initial_sleep: 10s
+      initial_delay: 10s
       format: gz
     static_configs:
       - targets:
