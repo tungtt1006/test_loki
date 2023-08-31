@@ -18,11 +18,10 @@ scrape_configs:
           selector: '{job="access-logs"}'
           stages:
             - regex:
-                #expression: '^(?s)(?P<time>\\S+?) (?P<stream>stdout|stderr) (?P<flags>\\S+?) (?P<content>.*)$'
                 expression: '^(?s)(?P<method>\\S+?) (?P<time>\\S+?) (?P<loadbalancer>app/veoh-alb-public/(\S\w+)) ((\S+?) ){9}("(?P<restfulmethod>GET|POST|PUT|PATCH) (?P<protocol>http|https)://(?P<domain>\\S+?):(?P<port>80|443)/(?P<path>\\S+?)\?(?P<parameters>\\S+?) (?P<httpversion>\\S+?)")$'
             - timestamp:
                 source: time
-                format: 2023-08-10T10:40:00.950980Z00:00
+                format: RFC3339
             - labels:
                 time:
                 method:

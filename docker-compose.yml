@@ -8,14 +8,13 @@ services:
 
   loki:
     image: grafana/loki
-    ports:
-      - 3100:3100
+    volumes:
+      - ./loki/config.yml:/etc/loki/local-config.yaml
 
   promtail:
     image: grafana/promtail
     volumes:
       - ./promtail/config.yml:/etc/promtail/config.yml
-      # - ./promtail/positions.yaml:/var/log/positions.yaml
       - ./promtail/logs:/var/log/access
     environment:
       LOKI: http://loki:3100/loki/api/v1/push
