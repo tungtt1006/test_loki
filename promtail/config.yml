@@ -13,25 +13,12 @@ target_config:
 
 scrape_configs:
   - job_name: access-logs
-    pipeline_stages:
-      - match:
-          selector: '{job="access-logs"}'
-          stages:
-            - regex:
-                expression: '^(?s)(?P<method>\\S+?) (?P<time>\\S+?) (?P<loadbalancer>app/veoh-alb-public/(\S\w+)) ((\S+?) ){9}("(?P<restfulmethod>GET|POST|PUT|PATCH) (?P<protocol>http|https)://(?P<domain>\\S+?):(?P<port>80|443)/(?P<path>\\S+?)\?(?P<parameters>\\S+?) (?P<httpversion>\\S+?)")$'
-            - timestamp:
-                source: time
-                format: RFC3339
-            - labels:
-                time:
-                method:
-                loadbalancer:
-                restfulmethod:
-                protocol:
-                domain:
-                port:
-                path:
-                parameters:
+    # pipeline_stages:
+    #   - match:
+    #       selector: '{job="access-logs"}'
+    #       stages:
+    #         - labels:
+    #             test: filename
     decompression:
       enabled: true
       initial_delay: 10s
@@ -41,4 +28,16 @@ scrape_configs:
           - localhost
         labels:
           __path__: /var/log/access/*.gz
+          podname: ${MY_POD_NAME}
           job: access-logs
+    relabel_configs:
+      - source_labels: [__path__]
+        target_label: pod_file_name
+      #   action: replace
+      #   regex: '^/var/log/access/test.log.gz$'
+      #   replacement: '${1}asdf'
+      - source_labels: [podname]
+        target_label: test2
+      #   action: replace
+      #   regex: '^test$'
+      #   replacement: '123123_1'
