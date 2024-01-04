@@ -28,16 +28,16 @@ scrape_configs:
           - localhost
         labels:
           __path__: /var/log/access/*.gz
-          podname: ${MY_POD_NAME}
+          podname: /var/log/access/test.log.gz
           job: access-logs
     relabel_configs:
-      - source_labels: [__path__]
-        target_label: pod_file_name
-      #   action: replace
-      #   regex: '^/var/log/access/test.log.gz$'
-      #   replacement: '${1}asdf'
       - source_labels: [podname]
         target_label: test2
-      #   action: replace
-      #   regex: '^test$'
-      #   replacement: '123123_1'
+        regex: "/var/log/(.*)/(.*)"
+        # action: replace
+        # replacement: "test"
+      # - source_labels: [podname]
+      #   target_label: pod_file_name
+      #   regex: "(.*)"
+      #   replacement: "${1}"
+      #   action: "replace"
